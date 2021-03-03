@@ -3,7 +3,7 @@ layout: single
 classes: wide
 title:  "Building a Location Search API: Prototyping"
 date:   2021-02-27 12:00:00 -0600
-categories: search api go golang benchmarking
+categories: go prototypes api
 ---
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
