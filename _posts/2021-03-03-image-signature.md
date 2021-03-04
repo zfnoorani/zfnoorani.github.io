@@ -141,7 +141,7 @@ Generally, and especially for RSA, encrypting a hash of the data is the suggeste
 import (
 	// ...
 	
-	// Rememver to all these other packages for additional image support!
+	// Remember to add all these packages for additional image support!
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
