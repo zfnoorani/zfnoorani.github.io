@@ -131,7 +131,7 @@ func getEXIF(filename, key string) ([]byte, error) {
 ```
 
 We could get smarter with this, but this covers our basic use case of getting and setting a single EXIF attribute.
-Note that because of how `exiftool` works, `writeEXIF` will create a `filename,JPG_original` file as a backup.
+Note that because of how `exiftool` works, `writeEXIF` will create a `filename.JPG_original` file as a backup.
 
 ## Building an Image Checksum
 Our digital signature needs some message to encrypt.
