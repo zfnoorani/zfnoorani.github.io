@@ -30,17 +30,17 @@ I have simple requirements:
 - No modifications to the raw pixel data.
 
 Surprisingly, there seems to be no standard or existing means of digitally signing pictures, or at least none that I've found.
-Any suggested approaches I found suggest simply signing the whole file and transmitting the digital signature separately.
-There exists some interest, both [academic](https://people.csail.mit.edu/kimo/publications/jpeg/tifs11a.pdf) and [otherwise](https://photo.stackexchange.com/questions/15307/can-digital-cameras-sign-images-to-prove-authenticity), but mostly for images taken from digital cameras.
+Any suggested approaches I found simply sign the whole file and transmit the digital signature separately.
+There's some interest, both [academic](https://people.csail.mit.edu/kimo/publications/jpeg/tifs11a.pdf) and [otherwise](https://photo.stackexchange.com/questions/15307/can-digital-cameras-sign-images-to-prove-authenticity), but mostly for images taken from digital cameras.
 
 I see a few options:
 1. Create a new file format with authentication in mind. 
 2. Create a digital signature and append it to the file.
 3. Create a digital signature and store it as [EXIF metadata](https://en.wikipedia.org/wiki/Exif).
 
-If you've seen [XKCD #927](https://xkcd.com/927/), you'll know that option 1 is a bad idea.
+If you've seen [XKCD #927](https://xkcd.com/927/), you'll know option one is a bad idea.
 
-The EXIF option seems the most viable to me.
+The EXIF option seems most viable to me.
 Any existing application interested in checking image signatures can read EXIF metadata better than they can read garbage at the end of a JPEG.
 EXIF is also a standard means of storing metadata across multiple image formats.
 
@@ -55,7 +55,7 @@ Let's get started.
 
 ## Choosing the Metadata
 
-Of all the EXIF fields available, I'm going to use the "Comment" field. Let's get this struct in there, encoded in JSON.
+Of the EXIF fields available, I'm going to use the "Comment" field. Let's get this struct in there, encoded in JSON.
 
 ```go
 type Metadata struct {
@@ -67,10 +67,10 @@ type Metadata struct {
 }
 ```
 
-Storing the signing public key here might make you a bit cross eyed, but remember we don't have a means of distributing public keys right now.
+Storing the public key here might make you cross eyed, but remember we don't have a centralized means of distributing public keys right now.
 
-The signature, for now, is just built off of raw pixel data.
-I don't think any other file attributes are important, but I'm open to changing that opinion.
+The signature is just built off of raw pixel data.
+I don't think any other file metadata are important, but I'm open to changing that opinion.
 
 There's probably smarter encodings available than PEM and JSON, with regards to message length.
 Let me know if so.
@@ -78,7 +78,7 @@ Let me know if so.
 ## Getting a Key Pair
 This scheme needs a public and private key.
 For this prototype, I'm using an RSA 2048 key generated with OpenSSL.
-
+Use these commands:
 ```bash
 openssl genrsa -out privkey.pem
 openssl rsa -in privkey.pem -pubout -out pubkey.pem
@@ -94,7 +94,7 @@ The latter pulls in too many dependencies and makes questionable use of `panic` 
 
 [ExifTool](https://en.wikipedia.org/wiki/ExifTool) is mature and available on most platforms.
 `sudo dnf install exiftool -y` is the incantation on Fedora to install it.
-It's a standalone utility, so we'll write a wrapper around ExifTool with the `exec` package.
+It's a standalone utility written in Perl, so we'll write a wrapper around ExifTool with the `exec` package.
 
 ```go
 // EXIF keys.
@@ -130,12 +130,12 @@ func getEXIF(filename, key string) ([]byte, error) {
 }
 ```
 
-We could get smarter with this, but this covers our basic use case of getting and setting a single EXIF attribute.
-Note that because of how `exiftool` works, `writeEXIF` will create a `filename.JPG_original` file as a backup.
+We could get smarter with this, but this covers the basic use case of getting and setting a single EXIF attribute.
+Note that because of how `exiftool` works, `writeEXIF` will overwrite `filename.JPG` create a `filename.JPG_original` file as a backup.
 
 ## Building an Image Checksum
 Our digital signature needs some message to encrypt.
-Generally, and especially for RSA, encrypting a hash of the data is the suggested approach.
+Generally, and especially for RSA, encrypting a hash of the data is the way.
 
 ```go
 import (
@@ -296,7 +296,8 @@ func verify(filename string) error {
 	return nil
 }
 ```
-Just like with signing, `rsa.VerifyPKCS1v15()` is doing the heavy lifting here.
+Like with signing, `rsa.VerifyPKCS1v15()` is doing the heavy lifting.
+It will decrypt the signature, and compare it against an expected 
 
 Let's try it on the image we just signed.
 ![](https://inahga-public.s3-us-west-2.amazonaws.com/verify1.png)
