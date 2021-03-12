@@ -6,10 +6,10 @@ date: 2021-03-03 12:00:00 -0600
 categories: go prototypes cryptography
 ---
 
-*Update 3/12/2021: Note that this article doesn't [address NFT](https://www.latimes.com/business/technology/story/2021-03-11/nft-explainer-crypto-trading-collectible). This is a far less sophisticated (and far more environmentally sustainable) approach, made for learning purposes.*
-
 An incident on Twitter involving one of my favorite artists got me thinking about cryptographic authenticity.
 One if their pieces had been edited by white supremecists to spread propaganda, and the artist was facing backlash.
+
+*Update 3/12/2021: Note that this article doesn't [address NFT](https://www.latimes.com/business/technology/story/2021-03-11/nft-explainer-crypto-trading-collectible). This is a far less sophisticated (and far more environmentally sustainable) approach, made for learning purposes.*
 
 I'd like to see a solution that empowers artists to sign off on copies of their digital or digitized art.
 Sites that host pictures should use this to indicate to viewers whether what they're viewing is authentic or not.
