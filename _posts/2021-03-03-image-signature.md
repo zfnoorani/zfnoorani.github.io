@@ -6,6 +6,8 @@ date: 2021-03-03 12:00:00 -0600
 categories: go prototypes cryptography
 ---
 
+*Update 3/12/2021: Note that this article doesn't [address NFT](https://www.latimes.com/business/technology/story/2021-03-11/nft-explainer-crypto-trading-collectible). This is a far less sophisticated (and far more environmentally sustainable) approach, made for learning purposes.*
+
 An incident on Twitter involving one of my favorite artists got me thinking about cryptographic authenticity.
 One if their pieces had been edited by white supremecists to spread propaganda, and the artist was facing backlash.
 
@@ -32,6 +34,8 @@ I have simple requirements:
 Surprisingly, there seems to be no standard or existing means of digitally signing pictures, or at least none that I've found.
 Any suggested approaches I found simply sign the whole file and transmit the digital signature separately.
 There's some interest, both [academic](https://people.csail.mit.edu/kimo/publications/jpeg/tifs11a.pdf) and [otherwise](https://photo.stackexchange.com/questions/15307/can-digital-cameras-sign-images-to-prove-authenticity), but mostly for images taken from digital cameras.
+
+*Update 3/12/2021: Yes, [NFT is a thing](https://en.wikipedia.org/wiki/Crypto_art) and has been for many years. Google is hard.*
 
 I see a few options:
 1. Create a new file format with authentication in mind. 
