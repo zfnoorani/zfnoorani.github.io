@@ -88,4 +88,6 @@ defaults:
     values:
       author_profile: true
       read_time: true
+      related: true
+      show_date: true
 
