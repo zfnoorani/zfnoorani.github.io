@@ -5,11 +5,11 @@ title:  "Building a Location Search API: Prototyping"
 date:   2021-02-27 12:00:00 -0600
 categories: go prototypes api
 ---
+For one of my projects, I need to create a search API that lets users filter locations of interest by proximity to another landmark.
+
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-
-For one of my projects, I need to create a search API that lets users filter locations of interest by proximity to another landmark.
 
 The premise is similar to Zillow.
 Users mark property for sale, and other users search for marked property within a radius of a landmark.
